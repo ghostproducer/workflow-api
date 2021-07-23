@@ -4,8 +4,11 @@ const cockpit_router = require("./cockpit_router");
 const cors = require('koa2-cors');
 const jwt = require("koa-jwt");
 const { setEngine, getEngine, setCockpit, getCockpit } = require("./engine");
-const { Engine, Cockpit } = require("@flowbuild/engine");
+const { Engine, Cockpit, NodeUtils } = require("@fieldlink/workflow-engine");
 const { db } = require("./tests/utils/db");
+const { IndexPlugin } = require("indexer-plugin/src/controller/indexController");
+
+const nodefyClass = NodeUtils.nodefyClass;
 
 const startServer = (port) => {
   let engine = getEngine();
@@ -13,11 +16,20 @@ const startServer = (port) => {
     engine = new Engine("knex", db);
     setEngine(engine);
   }
+
+
   let cockpit = getCockpit();
   if (!cockpit) {
     cockpit = new Cockpit("knex", db);
     setCockpit(cockpit);
   }
+
+  // const customNodes = {
+  //   ...nodefyClass(IndexPlugin, db),
+  //   ...customNodes
+  // }
+
+  // cockpit.addCustomSystemCategory({});
 
   const app = new Koa();
   const corsOptions = {

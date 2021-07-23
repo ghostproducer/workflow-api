@@ -7,7 +7,7 @@ const Knex = require('knex');
 
 const config = require('../knexfile');
 
-const knex = Knex(config[process.env.NODE_ENV]);
+const knex = Knex(config.local_docker_db);
 
 const setTimeoutAsync = (ms) => new Promise((resolve) => {
   setTimeout(resolve, ms);

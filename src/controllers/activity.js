@@ -163,7 +163,7 @@ const submitByActivityManagerId = async (ctx, next) => {
 	const actor_data = ctx.state.actor_data;
 	const activity_manager_id = ctx.params.activity_manager_id;
 	const external_input = ctx.request.body;
-	const result = await engine.submitActivity(activity_manager_id, actor_data, external_input);
+	const result = await engine.submitActivity(activity_managerpushActivity_id, actor_data, external_input);
 	if (result && !result.error) {
 		ctx.status = 202;
 	} else {
